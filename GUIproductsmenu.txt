@@ -1,0 +1,667 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class MenuOptionGUI extends JFrame {
+
+    private JLabel titleLabel;
+    private JButton[] categoryButtons;
+    private String[] categoryNames = {
+            "Men's Clothing",
+            "Women's Clothing",
+            "Infant Clothing",
+            "Kids Wear for Girls",
+            "Kids Wear for Boys",
+            "Home Merchandise",
+            "Gadget",
+            "Exit"
+    };
+
+    public MenuOptionGUI() {
+        setTitle("PRODUCTS MENU");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLayout(new BorderLayout());
+
+        // Create and add title label
+        titleLabel = new JLabel("Welcome! Please select a category:");
+        titleLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        titleLabel.setHorizontalAlignment(JLabel.CENTER);
+        add(titleLabel, BorderLayout.NORTH);
+        
+        // Create panel for category buttons and set layout
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.setLayout(new GridLayout(categoryNames.length, 1));
+
+        // Create and add category buttons to the panel
+        categoryButtons = new JButton[categoryNames.length];
+        for (int i = 0; i < categoryNames.length; i++) {
+            categoryButtons[i] = new JButton(categoryNames[i]);
+            categoryButtons[i].setFont(new Font("Arial", Font.PLAIN, 12));
+            categoryButtons[i].setMargin(new Insets(10, 20, 10, 20)); // Adjust padding
+            categoryButtons[i].addActionListener(new CategoryButtonListener());
+            buttonPanel.add(categoryButtons[i]);
+        }
+
+        // Add the button panel to the frame
+        add(buttonPanel, BorderLayout.CENTER);
+
+        // Set frame size and position
+        Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        int frameWidth = (int) (screenSize.width * 0.5);
+        int frameHeight = (int) (screenSize.height * 0.5);
+        setSize(frameWidth, frameHeight);
+        setLocationRelativeTo(null); // Center the frame on the screen
+
+        pack();
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+
+    private class CategoryButtonListener implements ActionListener {
+        public void actionPerformed(ActionEvent event) {
+            JButton source = (JButton) event.getSource();
+            String selectedCategory = source.getText();
+            switch (selectedCategory) {
+                case "Men's Clothing":
+                    showMensClothing();
+                    break;
+                case "Women's Clothing":
+                    showWomensClothing();
+                    break;
+                case "Infant Clothing":
+                    showInfantClothing();
+                    break;
+                case "Kids Wear for Girls":
+                    showKidsWearGirls();
+                    break;
+                case "Kids Wear for Boys":
+                    showKidsWearBoys();
+                    break;
+                case "Home Merchandise":
+                    showHomeMerchandise();
+                    break;
+                case "Gadget":
+                    showGadgets();
+                    break;
+                case "Exit":
+                    System.out.println("Thank you for shopping with us!");
+                    System.exit(0);
+            }
+        }
+    }
+    
+    private void showMensClothing() {
+        JButton tShirtButton = new JButton("T-shirt");
+        tShirtButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "T-shirt\nPrice: ₱390",
+                        "Men's Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton poloShirtButton = new JButton("Polo shirt");
+        poloShirtButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Polo shirt\nPrice: ₱590",
+                        "Men's Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton dressShirtButton = new JButton("Dress shirt");
+        dressShirtButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Dress shirt\nPrice: ₱800",
+                        "Men's Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton jeansButton = new JButton("Jeans");
+        jeansButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Jeans\nPrice: ₱420",
+                        "Men's Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton shortsButton = new JButton("Shorts");
+        shortsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Shorts\nPrice: ₱125",
+                        "Men's Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton underwearButton = new JButton("Underwear");
+        underwearButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Underwear\nPrice: ₱100",
+                        "Men's Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+       
+
+        JPanel mensClothingPanel = new JPanel(new GridLayout(7, 1));
+        mensClothingPanel.add(tShirtButton);
+        mensClothingPanel.add(poloShirtButton);
+        mensClothingPanel.add(dressShirtButton);
+        mensClothingPanel.add(jeansButton);
+        mensClothingPanel.add(shortsButton);
+        mensClothingPanel.add(underwearButton);
+      
+
+        JOptionPane.showMessageDialog(this, mensClothingPanel, "Men's Clothing", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private void showWomensClothing() {
+    	JButton tShirtButton = new JButton("T-shirt");
+        tShirtButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "T-shirt\nPrice: ₱290",
+                        "Women's Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton blouseButton = new JButton("Blouse");
+        blouseButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Blouse\nPrice: ₱250",
+                        "Women's Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton dressButton = new JButton("Dress");
+        dressButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Dress\nPrice: ₱700",
+                        "Women's Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton jeansButton = new JButton("Jeans");
+        jeansButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Jeans\nPrice: ₱500",
+                        "Women's Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton skirtButton = new JButton("Skirt");
+        skirtButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Skirt\nPrice: ₱400",
+                        "Women's Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton underwearButton = new JButton("Underwear");
+        underwearButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Underwear\nPrice: ₱100",
+                        "Women's Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+       
+
+        JPanel womensClothingPanel = new JPanel(new GridLayout(7, 1));
+        womensClothingPanel.add(tShirtButton);
+        womensClothingPanel.add(blouseButton);
+        womensClothingPanel.add(dressButton);
+        womensClothingPanel.add(jeansButton);
+        womensClothingPanel.add(skirtButton);
+        womensClothingPanel.add(underwearButton);
+      
+
+        JOptionPane.showMessageDialog(this, womensClothingPanel, "Women's Clothing", JOptionPane.PLAIN_MESSAGE);
+    }
+
+
+    private void showInfantClothing() {
+    	JButton leggingsButton = new JButton("Leggings");
+        leggingsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Leggings\nPrice: ₱180",
+                        "Infant Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton topsButton = new JButton("Tops");
+        topsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Tops\nPrice: ₱200",
+                        "Infant Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton bodysuitsButton = new JButton("Bodysuits");
+        bodysuitsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Bodysuits\nPrice: ₱290",
+                        "Infant Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton onepiecesButton = new JButton("One-Pieces");
+        onepiecesButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "One-Pieces\nPrice: ₱400",
+                        "Infant Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton pajamasButton = new JButton("Pajamas");
+        pajamasButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Pajamas\nPrice: ₱350",
+                        "Infant Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton innerwearButton = new JButton("Innerwear");
+        innerwearButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Innerwear\nPrice: ₱260",
+                        "Infant Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton socksButton = new JButton("Socks");
+        socksButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Socks\nPrice: ₱100",
+                        "Infant Clothing", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+       
+
+        JPanel infantClothingPanel = new JPanel(new GridLayout(7, 1));
+        infantClothingPanel.add(leggingsButton);
+        infantClothingPanel.add(topsButton);
+        infantClothingPanel.add(bodysuitsButton);
+        infantClothingPanel.add(onepiecesButton);
+        infantClothingPanel.add(pajamasButton);
+        infantClothingPanel.add(innerwearButton);
+        infantClothingPanel.add(socksButton);
+
+        JOptionPane.showMessageDialog(this, infantClothingPanel, "Infant Clothing", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private void showKidsWearGirls() {
+    	JButton skirtsButton = new JButton("Skirts");
+        skirtsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Skirts\nPrice: ₱200",
+                        "Kids Wear for Girls", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton dressesButton = new JButton("Dresses");
+        dressesButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Dresses\nPrice: ₱250",
+                        "Kids Wear for Girls", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton jumpsuitsButton = new JButton("Jumpsuits");
+        jumpsuitsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Jumpsuits\nPrice: ₱200",
+                        "Kids Wear for Girls", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton topsButton = new JButton("Tops");
+        topsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Tops\nPrice: ₱180",
+                        "Kids Wear for Girls", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton bodysuitsButton = new JButton("Bodysuits");
+        bodysuitsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Bodysuits\nPrice: ₱250",
+                        "Kids Wear for Girls", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton underwearButton = new JButton("Underwear");
+        underwearButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Underwear\nPrice: ₱100",
+                        "Kids Wear for Girls", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+       
+
+        JPanel kidsweargirlsClothingPanel = new JPanel(new GridLayout(7, 1));
+        kidsweargirlsClothingPanel.add(skirtsButton);
+        kidsweargirlsClothingPanel.add(dressesButton);
+        kidsweargirlsClothingPanel.add(jumpsuitsButton);
+        kidsweargirlsClothingPanel.add(topsButton);
+        kidsweargirlsClothingPanel.add(bodysuitsButton);
+        kidsweargirlsClothingPanel.add(underwearButton);
+       
+
+        JOptionPane.showMessageDialog(this, kidsweargirlsClothingPanel, "Kids Wear for Girls", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private void showKidsWearBoys() {
+    	JButton tshirtButton = new JButton("T-shirt");
+        tshirtButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "T-shirt\nPrice: ₱150",
+                        "Kids Wear for Boys", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton poloButton = new JButton("Polo");
+        poloButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Polo\nPrice: ₱280",
+                        "Kids Wear for Boys", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton joggerButton = new JButton("Jogger");
+        joggerButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Jogger\nPrice: ₱250",
+                        "Kids Wear for Boys", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton shortsButton = new JButton("Shorts");
+        shortsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Shorts\nPrice: ₱120",
+                        "Kids Wear for Boys", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton formalsuitsButton = new JButton("Formal Suits");
+        formalsuitsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Formal Suits\nPrice: ₱800",
+                        "Kids Wear for Boys", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton underwearButton = new JButton("Underwear");
+        underwearButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Underwear\nPrice: ₱100",
+                        "Kids Wear for Boys", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+       
+
+        JPanel kidswearboysClothingPanel = new JPanel(new GridLayout(7, 1));
+        kidswearboysClothingPanel.add(tshirtButton);
+        kidswearboysClothingPanel.add(poloButton);
+        kidswearboysClothingPanel.add(joggerButton);
+        kidswearboysClothingPanel.add(shortsButton);
+        kidswearboysClothingPanel.add(formalsuitsButton);
+        kidswearboysClothingPanel.add(underwearButton);
+       
+
+        JOptionPane.showMessageDialog(this, kidswearboysClothingPanel, "Kids Wear for Boys", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private void showHomeMerchandise() {
+    	JButton vacuumButton = new JButton("Vacuum Cleaner");
+        vacuumButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Vacuum Cleaner\nPrice: ₱6000",
+                        "Home Merchandise", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton mattressButton = new JButton("Mattress");
+        mattressButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Mattress\nPrice: ₱2500",
+                        "Home Merchandise", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton coffeeButton = new JButton("Coffee Maker");
+        coffeeButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Coffee Maker\nPrice: ₱1850",
+                        "Home Merchandise", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton refButton = new JButton("Refrigerator");
+        refButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Refrigerator\nPrice: ₱5500",
+                        "Home Merchandise", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton lampsButton = new JButton("Lamps");
+        lampsButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Lamps\nPrice: ₱4000",
+                        "Home Merchandise", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton curtainButton = new JButton("Curtain");
+        curtainButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Curtain\nPrice: ₱350",
+                        "Home Merchandise", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        
+        JButton stoveButton = new JButton("Kitchen Stove");
+        stoveButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Kitchen Stove\nPrice: ₱3300",
+                        "Home Merchandise", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        
+        JButton boardButton = new JButton("Cutting Board");
+        boardButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Cutting Board\nPrice: 89",
+                        "Home Merchandise", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        
+        JButton storageButton = new JButton("Food Storage");
+        storageButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Food Storage\nPrice: 190",
+                        "Home Merchandise", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        
+        JButton mopButton = new JButton("Mop");
+        mopButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Mop\nPrice: 200",
+                        "Home Merchandise", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JPanel homeMerchandisePanel = new JPanel(new GridLayout(7, 1));
+        homeMerchandisePanel.add(vacuumButton);
+        homeMerchandisePanel.add(mattressButton);
+        homeMerchandisePanel.add(coffeeButton);
+        homeMerchandisePanel.add(refButton);
+        homeMerchandisePanel.add(lampsButton);
+        homeMerchandisePanel.add(curtainButton);
+        homeMerchandisePanel.add(stoveButton);
+        homeMerchandisePanel.add(boardButton);
+        homeMerchandisePanel.add(storageButton);
+        homeMerchandisePanel.add(mopButton);
+
+        JOptionPane.showMessageDialog(this, homeMerchandisePanel, "Home Merchandise", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    private void showGadgets() {
+    	JButton redmiButton = new JButton("Redmi Note 12 Pro");
+        redmiButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Redmi Note 12 Pro\nPrice: ₱18203",
+                        "Gadgets", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton samsungButton = new JButton("Samsung Galaxy S23 Ultra");
+        samsungButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Samsung Galaxy S23 Ultra\nPrice: ₱89990",
+                        "Gadgets", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton huaweiButton = new JButton("Huawei P60 Pro");
+        huaweiButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Huawei P60 Pro\nPrice: ₱69999",
+                        "Gadgets", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton iphoneButton = new JButton("iPhone 14 Pro Max");
+        iphoneButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "iPhone 14 Pro Max\nPrice: ₱77990",
+                        "Gadgets", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton canonButton = new JButton("Canon EOS 4000D");
+        canonButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Canon EOS 4000D\nPrice: ₱61808",
+                        "Gadgets", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JButton nikonButton = new JButton("Nikon D7500");
+        nikonButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Nikon D7500\nPrice: ₱123896",
+                        "Gadgets", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        
+        JButton appleButton = new JButton("Apple Airpods Pro 2nd Generation");
+        appleButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Apple Airpods Pro 2nd Generation\nPrice: ₱17278",
+                        "Gadgets", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        
+        JButton sonyButton = new JButton("Sony WH-1000XM5");
+        sonyButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Sony WH-1000XM5\nPrice: 34949",
+                        "Gadgets", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        
+        JButton macbookButton = new JButton("Apple Macbook Air M1 2020");
+        macbookButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Apple Macbook Air M1 2020\nPrice: 119268",
+                        "Gadgets", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+        
+        JButton lenovoButton = new JButton("Lenovo Legion 5i Pro");
+        lenovoButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(MenuOptionGUI.this,
+                        "Lenovo Legion 5i Pro\nPrice: 91875",
+                        "Gadgets", JOptionPane.INFORMATION_MESSAGE);
+            }
+        });
+
+        JPanel gadgetPanel = new JPanel(new GridLayout(7, 1));
+        gadgetPanel.add(redmiButton);
+        gadgetPanel.add(samsungButton);
+        gadgetPanel.add(huaweiButton);
+        gadgetPanel.add(iphoneButton);
+        gadgetPanel.add(canonButton);
+        gadgetPanel.add(nikonButton);
+        gadgetPanel.add(appleButton);
+        gadgetPanel.add(sonyButton);
+        gadgetPanel.add(macbookButton);
+        gadgetPanel.add(lenovoButton);
+
+        JOptionPane.showMessageDialog(this, gadgetPanel, "Gadgets", JOptionPane.PLAIN_MESSAGE);
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                new MenuOptionGUI();
+            }
+        });
+    }
+}
