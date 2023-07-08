@@ -20,31 +20,39 @@ public class MenuOptionGUI extends JFrame {
 
     public MenuOptionGUI() {
         setTitle("PRODUCTS MENU");
+        setSize(1000, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-
+        setLocationRelativeTo(null);
+       
+        
         // Create and add title label
-        titleLabel = new JLabel("Welcome! Please select a category:");
-        titleLabel.setFont(new Font("Arial", Font.PLAIN, 20));
+        titleLabel = new JLabel("Welcome to our Online Shop! Please select a category:");
+        titleLabel.setFont(new Font("Open Sans", Font.BOLD, 20));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
+        titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
         add(titleLabel, BorderLayout.NORTH);
+        
         
         // Create panel for category buttons and set layout
         JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new GridLayout(categoryNames.length, 1));
+        buttonPanel.setLayout(new GridLayout(categoryNames.length, 1, 0, 10));
+        buttonPanel.setBorder(BorderFactory.createEmptyBorder(20, 40, 40, 20));
 
         // Create and add category buttons to the panel
         categoryButtons = new JButton[categoryNames.length];
         for (int i = 0; i < categoryNames.length; i++) {
             categoryButtons[i] = new JButton(categoryNames[i]);
-            categoryButtons[i].setFont(new Font("Arial", Font.PLAIN, 12));
-            categoryButtons[i].setMargin(new Insets(10, 20, 10, 20)); // Adjust padding
+            categoryButtons[i].setFont(new Font("Arial", Font.BOLD, 15));
+            categoryButtons[i].setMargin(new Insets(20, 10, 20, 10)); 
+            categoryButtons[i].setBackground(new Color(135, 206, 250));
             categoryButtons[i].addActionListener(new CategoryButtonListener());
             buttonPanel.add(categoryButtons[i]);
         }
 
         // Add the button panel to the frame
         add(buttonPanel, BorderLayout.CENTER);
+     
 
         // Set frame size and position
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -98,6 +106,7 @@ public class MenuOptionGUI extends JFrame {
                 JOptionPane.showMessageDialog(MenuOptionGUI.this,
                         "T-shirt\nPrice: ₱390",
                         "Men's Clothing", JOptionPane.INFORMATION_MESSAGE);
+                
             }
         });
 
@@ -156,7 +165,8 @@ public class MenuOptionGUI extends JFrame {
         mensClothingPanel.add(shortsButton);
         mensClothingPanel.add(underwearButton);
       
-
+        mensClothingPanel.setPreferredSize(new Dimension(300, 300));
+        
         JOptionPane.showMessageDialog(this, mensClothingPanel, "Men's Clothing", JOptionPane.PLAIN_MESSAGE);
     }
 
@@ -225,7 +235,8 @@ public class MenuOptionGUI extends JFrame {
         womensClothingPanel.add(skirtButton);
         womensClothingPanel.add(underwearButton);
       
-
+        womensClothingPanel.setPreferredSize(new Dimension(300, 300));
+        
         JOptionPane.showMessageDialog(this, womensClothingPanel, "Women's Clothing", JOptionPane.PLAIN_MESSAGE);
     }
 
@@ -304,6 +315,8 @@ public class MenuOptionGUI extends JFrame {
         infantClothingPanel.add(innerwearButton);
         infantClothingPanel.add(socksButton);
 
+        infantClothingPanel.setPreferredSize(new Dimension(300, 300));
+        
         JOptionPane.showMessageDialog(this, infantClothingPanel, "Infant Clothing", JOptionPane.PLAIN_MESSAGE);
     }
 
@@ -372,6 +385,7 @@ public class MenuOptionGUI extends JFrame {
         kidsweargirlsClothingPanel.add(bodysuitsButton);
         kidsweargirlsClothingPanel.add(underwearButton);
        
+        kidsweargirlsClothingPanel.setPreferredSize(new Dimension(300, 300));
 
         JOptionPane.showMessageDialog(this, kidsweargirlsClothingPanel, "Kids Wear for Girls", JOptionPane.PLAIN_MESSAGE);
     }
@@ -441,6 +455,7 @@ public class MenuOptionGUI extends JFrame {
         kidswearboysClothingPanel.add(formalsuitsButton);
         kidswearboysClothingPanel.add(underwearButton);
        
+        kidswearboysClothingPanel.setPreferredSize(new Dimension(300, 300));
 
         JOptionPane.showMessageDialog(this, kidswearboysClothingPanel, "Kids Wear for Boys", JOptionPane.PLAIN_MESSAGE);
     }
@@ -548,6 +563,8 @@ public class MenuOptionGUI extends JFrame {
         homeMerchandisePanel.add(storageButton);
         homeMerchandisePanel.add(mopButton);
 
+        homeMerchandisePanel.setPreferredSize(new Dimension(300, 300));	
+        
         JOptionPane.showMessageDialog(this, homeMerchandisePanel, "Home Merchandise", JOptionPane.PLAIN_MESSAGE);
     }
 
@@ -654,6 +671,8 @@ public class MenuOptionGUI extends JFrame {
         gadgetPanel.add(macbookButton);
         gadgetPanel.add(lenovoButton);
 
+        gadgetPanel.setPreferredSize(new Dimension(300, 300));	
+        
         JOptionPane.showMessageDialog(this, gadgetPanel, "Gadgets", JOptionPane.PLAIN_MESSAGE);
     }
 
