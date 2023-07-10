@@ -20,7 +20,6 @@ public class OnlineShopMenu extends JFrame {
 
     public OnlineShopMenu() {
         setTitle("PRODUCTS MENU");
-        setSize(1000, 900);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
@@ -108,6 +107,7 @@ public class OnlineShopMenu extends JFrame {
         JButton underwearButton = createClothingButton("Underwear", "₱100");
 
         JPanel mensClothingPanel = new JPanel(new GridLayout(7, 1));
+        
         mensClothingPanel.add(tShirtButton);
         mensClothingPanel.add(poloShirtButton);
         mensClothingPanel.add(dressShirtButton);
@@ -115,7 +115,8 @@ public class OnlineShopMenu extends JFrame {
         mensClothingPanel.add(shortsButton);
         mensClothingPanel.add(underwearButton);
 
-        mensClothingPanel.setPreferredSize(new Dimension(300, 300));
+        mensClothingPanel.setPreferredSize(new Dimension(500, 500));
+      
 
         JOptionPane.showMessageDialog(this, mensClothingPanel, "Men's Clothing", JOptionPane.PLAIN_MESSAGE);
     }
@@ -173,7 +174,7 @@ public class OnlineShopMenu extends JFrame {
     	    womensClothingPanel.add(skirtButton);
     	    womensClothingPanel.add(underwearButton);
 
-    	    womensClothingPanel.setPreferredSize(new Dimension(300, 300));
+    	    womensClothingPanel.setPreferredSize(new Dimension(500, 500));
 
     	    JOptionPane.showMessageDialog(this, womensClothingPanel, "Women's Clothing", JOptionPane.PLAIN_MESSAGE);
     	}
@@ -196,7 +197,7 @@ public class OnlineShopMenu extends JFrame {
 	    InfantsClothingPanel.add(innerwearButton);
 	    InfantsClothingPanel.add(socksButton);
 
-	    InfantsClothingPanel.setPreferredSize(new Dimension(300, 300));
+	    InfantsClothingPanel.setPreferredSize(new Dimension(500, 500));
 
 	    JOptionPane.showMessageDialog(this, InfantsClothingPanel, "Infants Clothing", JOptionPane.PLAIN_MESSAGE);
 	}
@@ -217,7 +218,7 @@ public class OnlineShopMenu extends JFrame {
 	    GirlsClothingPanel.add(bodysuitsButton);
 	    GirlsClothingPanel.add(underwearButton);
 
-	    GirlsClothingPanel.setPreferredSize(new Dimension(300, 300));
+	    GirlsClothingPanel.setPreferredSize(new Dimension(500, 500));
 
 	    JOptionPane.showMessageDialog(this, GirlsClothingPanel, "Kids Wear for Girls", JOptionPane.PLAIN_MESSAGE);
     }
@@ -238,7 +239,7 @@ public class OnlineShopMenu extends JFrame {
 	    BoysClothingPanel.add(formalsuitsButton);
 	    BoysClothingPanel.add(underwearButton);
 
-	    BoysClothingPanel.setPreferredSize(new Dimension(300, 300));
+	    BoysClothingPanel.setPreferredSize(new Dimension(500, 500));
 
 	    JOptionPane.showMessageDialog(this, BoysClothingPanel, "Kids Wear for Boys", JOptionPane.PLAIN_MESSAGE);
     }
@@ -267,7 +268,7 @@ public class OnlineShopMenu extends JFrame {
 	    HomeMPanel.add(storageButton);
 	    HomeMPanel.add(mopButton);
 
-	    HomeMPanel.setPreferredSize(new Dimension(300, 300));
+	    HomeMPanel.setPreferredSize(new Dimension(500, 500));
 
 	    JOptionPane.showMessageDialog(this, HomeMPanel, "Home Merchandise", JOptionPane.PLAIN_MESSAGE);
 
@@ -296,7 +297,7 @@ public class OnlineShopMenu extends JFrame {
 	    GadgetsPanel.add(macbookButton);
 	    GadgetsPanel.add(lenovoButton);
 
-	    GadgetsPanel.setPreferredSize(new Dimension(300, 300));
+	    GadgetsPanel.setPreferredSize(new Dimension(900, 500));
 
 	    JOptionPane.showMessageDialog(this, GadgetsPanel, "Gadgets", JOptionPane.PLAIN_MESSAGE);
     }
