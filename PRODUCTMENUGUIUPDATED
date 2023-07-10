@@ -71,34 +71,34 @@ public class OnlineShopMenu extends JFrame {
         public void actionPerformed(ActionEvent event) {
             JButton source = (JButton) event.getSource();
             String selectedCategory = source.getText();
-            switch (selectedCategory) {
-                case "Men's Clothing":
-                    showMensClothing();
-                    break;
-                case "Women's Clothing":
-                    showWomensClothing();
-                    break;
-                case "Infant Clothing":
-                    showInfantClothing();
-                    break;
-                case "Kids Wear for Girls":
-                    showKidsWearGirls();
-                    break;
-                case "Kids Wear for Boys":
-                    showKidsWearBoys();
-                    break;
-                case "Home Merchandise":
-                    showHomeMerchandise();
-                    break;
-                case "Gadget":
-                    showGadgets();
-                    break;
-                case "Exit":
-                    System.out.println("Thank you for shopping with us!");
-                    System.exit(0);
+            if (selectedCategory.equals("Men's Clothing")) {
+                showMensClothing();
+            } else if (selectedCategory.equals("Women's Clothing")) {
+                showWomensClothing();
+            } else if (selectedCategory.equals("Infant Clothing")) {
+                showInfantClothing();
+            } else if (selectedCategory.equals("Kids Wear for Girls")) {
+                showKidsWearGirls();
+            } else if (selectedCategory.equals("Kids Wear for Boys")) {
+                showKidsWearBoys();
+            } else if (selectedCategory.equals("Home Merchandise")) {
+                showHomeMerchandise();
+            } else if (selectedCategory.equals("Gadget")) {
+                showGadgets();
+            } else if (selectedCategory.equals("Exit")) {
+            	dispose();
+                Homepage hp = new Homepage();
+                hp.setTitle("ITBoutique");
+                hp.setSize(900, 500);
+                hp.setLocationRelativeTo(null);
+                hp.setDefaultCloseOperation(EXIT_ON_CLOSE);
+                hp.setVisible(true);
+
+                
             }
         }
     }
+
     private void addToCart() {
         if (selectedItem != null) {
             JOptionPane.showMessageDialog(this, "Item '" + selectedItem + "' is added to cart", "Cart", JOptionPane.INFORMATION_MESSAGE);
@@ -158,9 +158,13 @@ public class OnlineShopMenu extends JFrame {
                 buyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
                 buyButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        JOptionPane.showMessageDialog(OnlineShopMenu.this,
-                                "You have purchased " + clothingName + " for " + price + ".",
-                                "Purchase Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                    	dispose();
+                        CheckOut co = new CheckOut();
+                        co.setTitle("ITBoutique");
+                        co.setSize(900, 500);
+                        co.setLocationRelativeTo(null);
+                        co.setDefaultCloseOperation(EXIT_ON_CLOSE);
+                        co.setVisible(true);
                     }
                 });
                 panel.add(buyButton);
@@ -332,5 +336,6 @@ public class OnlineShopMenu extends JFrame {
                 new OnlineShopMenu();
             }
         });
+        
     }
 }
