@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 public class OnlineShopMenu extends JFrame {
 
     private JLabel titleLabel;
+    private String selectedItem;
     private JButton[] categoryButtons;
     private String[] categoryNames = {
             "Men's Clothing",
@@ -44,7 +45,8 @@ public class OnlineShopMenu extends JFrame {
             categoryButtons[i] = new JButton(categoryNames[i]);
             categoryButtons[i].setFont(new Font("Arial", Font.BOLD, 15));
             categoryButtons[i].setMargin(new Insets(20, 10, 20, 10));
-            categoryButtons[i].setBackground(new Color(135, 206, 250));
+            categoryButtons[i].setBackground(new Color(102, 102, 0));
+            categoryButtons[i].setForeground(Color.WHITE);
             categoryButtons[i].addActionListener(new CategoryButtonListener());
             buttonPanel.add(categoryButtons[i]);
         }
@@ -97,6 +99,14 @@ public class OnlineShopMenu extends JFrame {
             }
         }
     }
+    private void addToCart() {
+        if (selectedItem != null) {
+            JOptionPane.showMessageDialog(this, "Item '" + selectedItem + "' is added to cart", "Cart", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "No item selected", "Cart", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
 
     private void showMensClothing() {
         JButton tShirtButton = createClothingButton("T-shirt", "₱390");
@@ -106,6 +116,7 @@ public class OnlineShopMenu extends JFrame {
         JButton shortsButton = createClothingButton("Shorts", "₱125");
         JButton underwearButton = createClothingButton("Underwear", "₱100");
 
+        
         JPanel mensClothingPanel = new JPanel(new GridLayout(7, 1));
         
         mensClothingPanel.add(tShirtButton);
@@ -116,15 +127,17 @@ public class OnlineShopMenu extends JFrame {
         mensClothingPanel.add(underwearButton);
 
         mensClothingPanel.setPreferredSize(new Dimension(500, 500));
-      
+        
 
         JOptionPane.showMessageDialog(this, mensClothingPanel, "Men's Clothing", JOptionPane.PLAIN_MESSAGE);
     }
 
     private JButton createClothingButton(String clothingName, String price) {
-        JButton button = new JButton(clothingName);
-        button.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+    	    JButton button = new JButton(clothingName);
+    	    button.addActionListener(new ActionListener() {
+    	        public void actionPerformed(ActionEvent e) {
+    	            selectedItem = clothingName;
+    	            
                 JPanel panel = new JPanel();
                 panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
@@ -152,6 +165,17 @@ public class OnlineShopMenu extends JFrame {
                 });
                 panel.add(buyButton);
                 
+                panel.add(Box.createVerticalStrut(10));
+                
+                JButton cartButton = new JButton("Add to Cart");
+                cartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
+                cartButton.addActionListener(new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                        addToCart(); 
+                    }
+                });
+                panel.add(cartButton);
+                
                 JOptionPane.showMessageDialog(OnlineShopMenu.this, panel, "Product Details", JOptionPane.PLAIN_MESSAGE);
             }
         });
@@ -175,7 +199,7 @@ public class OnlineShopMenu extends JFrame {
     	    womensClothingPanel.add(underwearButton);
 
     	    womensClothingPanel.setPreferredSize(new Dimension(500, 500));
-
+    	   
     	    JOptionPane.showMessageDialog(this, womensClothingPanel, "Women's Clothing", JOptionPane.PLAIN_MESSAGE);
     	}
 
