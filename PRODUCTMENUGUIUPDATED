@@ -16,7 +16,7 @@ public class OnlineShopMenu extends JFrame {
             "Kids Wear for Boys",
             "Home Merchandise",
             "Gadget",
-            "Exit"
+            "Back to Homepage"
     };
 
     public OnlineShopMenu() {
@@ -85,12 +85,11 @@ public class OnlineShopMenu extends JFrame {
                 showHomeMerchandise();
             } else if (selectedCategory.equals("Gadget")) {
                 showGadgets();
-            } else if (selectedCategory.equals("Exit")) {
+            } else if (selectedCategory.equals("Back to Homepage")) {
             	dispose();
                 Homepage hp = new Homepage();
                 hp.setTitle("ITBoutique");
-                hp.setSize(900, 500);
-                hp.setLocationRelativeTo(null);
+                hp.setSize(500, 400);
                 hp.setDefaultCloseOperation(EXIT_ON_CLOSE);
                 hp.setVisible(true);
 
