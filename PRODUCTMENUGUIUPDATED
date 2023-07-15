@@ -8,7 +8,6 @@ public class OnlineShopMenu extends JFrame {
 	private String clothingName;
     private int clothingPrice;
     private JLabel titleLabel;
-    private String selectedItem;
     private JButton[] categoryButtons;
     private String[] categoryNames = {
             "Men's Clothing",
@@ -108,14 +107,6 @@ public class OnlineShopMenu extends JFrame {
         }
     }
 
-    private void addToCart() {
-        if (selectedItem != null) {
-            JOptionPane.showMessageDialog(this, "Item '" + selectedItem + "' is added to cart", "Cart", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "No item selected", "Cart", JOptionPane.WARNING_MESSAGE);
-        }
-    }
-
     private void showMensClothing() {
         JButton tShirtButton = createClothingButton("T-shirt", 390);
         JButton poloShirtButton = createClothingButton("Polo shirt", 590);
@@ -142,7 +133,6 @@ public class OnlineShopMenu extends JFrame {
          JButton button = new JButton(clothingName);
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                selectedItem = clothingName;
                 
                 
                 JPanel panel = new JPanel();
@@ -184,7 +174,7 @@ public class OnlineShopMenu extends JFrame {
                 cartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
                 cartButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
-                        addToCart();
+                      
                     }
                 });
                 panel.add(cartButton);
