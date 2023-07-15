@@ -5,6 +5,8 @@ import java.awt.event.ActionListener;
 
 public class OnlineShopMenu extends JFrame {
 
+	private String clothingName;
+    private int clothingPrice;
     private JLabel titleLabel;
     private String selectedItem;
     private JButton[] categoryButtons;
@@ -18,7 +20,20 @@ public class OnlineShopMenu extends JFrame {
             "Gadget",
             "Back to Homepage"
     };
-
+    
+    public String getClothingName() {
+        return clothingName;
+    }
+    public void setClothingName(String clothingName) {
+        this.clothingName = clothingName;
+    }
+    public int getClothingPrice() {
+        return clothingPrice;
+    }
+    public void setClothingPrice(int clothingPrice) {
+        this.clothingPrice = clothingPrice;
+    }
+    
     public OnlineShopMenu() {
         setTitle("PRODUCTS MENU");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -87,11 +102,8 @@ public class OnlineShopMenu extends JFrame {
                 showGadgets();
             } else if (selectedCategory.equals("Back to Homepage")) {
                 dispose();
-                Homepage hp = new Homepage();
-                hp.setTitle("ITBoutique");
-                hp.setSize(500, 400);
-                hp.setDefaultCloseOperation(EXIT_ON_CLOSE);
-                hp.setVisible(true);
+                new Homepage();
+                
             }
         }
     }
@@ -126,12 +138,13 @@ public class OnlineShopMenu extends JFrame {
         JOptionPane.showMessageDialog(this, mensClothingPanel, "Men's Clothing", JOptionPane.PLAIN_MESSAGE);
     }
 
-    private JButton createClothingButton(String clothingName, int price) {
-        JButton button = new JButton(clothingName);
+    public JButton createClothingButton(String clothingName, int price) {
+         JButton button = new JButton(clothingName);
         button.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 selectedItem = clothingName;
-
+                
+                
                 JPanel panel = new JPanel();
                 panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
@@ -152,13 +165,15 @@ public class OnlineShopMenu extends JFrame {
                 buyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
                 buyButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
+                        // Get the selected clothing name and price
+                        String selectedClothingName = clothingName;
+                        int selectedClothingPrice = price;
+
+                        // Create an instance of CheckOut and pass the clothingName and clothingPrice
+                        CheckOut checkout = new CheckOut(selectedClothingName, selectedClothingPrice);
+
                         dispose();
-                        CheckOut co = new CheckOut();
-                        co.setTitle("ITBoutique");
-                        co.setSize(900, 500);
-                        co.setLocationRelativeTo(null);
-                        co.setDefaultCloseOperation(EXIT_ON_CLOSE);
-                        co.setVisible(true);
+                        checkout.setVisible(true);
                     }
                 });
                 panel.add(buyButton);
@@ -180,7 +195,7 @@ public class OnlineShopMenu extends JFrame {
         return button;
     }
 
-    private void showWomensClothing() {
+    public void showWomensClothing() {
         JButton tShirtButton = createClothingButton("T-shirt", 290);
         JButton blouseButton = createClothingButton("Blouse", 250);
         JButton dressButton = createClothingButton("Dress", 700);
@@ -322,13 +337,5 @@ public class OnlineShopMenu extends JFrame {
         gadgetsPanel.setPreferredSize(new Dimension(900, 500));
 
         JOptionPane.showMessageDialog(this, gadgetsPanel, "Gadgets", JOptionPane.PLAIN_MESSAGE);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                new OnlineShopMenu();
-            }
-        });
     }
 }
