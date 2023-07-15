@@ -174,7 +174,7 @@ public class CheckOut extends JFrame implements ActionListener {
     private void showSelectedClothing() {
         txttotal.setText(String.valueOf(clothingPrice));
 
-        summ.setText("Selected Clothing:\n" + clothingName + "\nPrice: ₱" + clothingPrice);
+        summ.setText("Selected Item:\n" + clothingName + "\nPrice: ₱" + clothingPrice);
     }
 
     public void setClothingName(String cname) {
