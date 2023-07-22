@@ -1,26 +1,51 @@
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class shoppingCart extends JFrame implements ActionListener {
 
+	private ArrayList<CartItem> cartItemsList = new ArrayList<>();
     private JPanel mainPanel, itemPanel, pricePanel, totalPanel;
     private JLabel totalLabel;
     public JTextArea totalArea, itemTextArea, priceTextArea;
     private JButton btnCheckOut, btnBackToHp, btnRemoveItem, btnTotal;
 
+    class CartItem {
+        private String itemName;
+        private String itemPrice;
+
+        public CartItem(String itemName, String itemPrice) {
+            this.itemName = itemName;
+            this.itemPrice = itemPrice;
+        }
+
+        public String getItemName() {
+            return itemName;
+        }
+
+        public String getItemPrice() {
+            return itemPrice;
+        }
+    }
+    
     public shoppingCart() {
 
         setTitle("SHOPPING CART");
         setSize(800, 600);
+        Image icon = Toolkit.getDefaultToolkit().getImage("C:\\Downloads\\olshoppinglogo.png");    
+        setIconImage(icon); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
         setLocationRelativeTo(null);
@@ -28,12 +53,13 @@ public class shoppingCart extends JFrame implements ActionListener {
         mainPanel = new JPanel();
         mainPanel.setBorder(BorderFactory.createEmptyBorder(40, 40, 40, 40));
         mainPanel.setLayout(new GridLayout(1, 2));
+        mainPanel.setBackground(new java.awt.Color(204, 204, 204));
 
         JLabel titleLabel = new JLabel("SHOPPING CART");
-        titleLabel.setFont(new Font("Times New Roman", Font.BOLD, 25));
+        titleLabel.setFont(new Font("Arial", Font.BOLD, 25));
         titleLabel.setHorizontalAlignment(JLabel.CENTER);
         titleLabel.setBorder(BorderFactory.createEmptyBorder(20, 25, 0, 0));
-        add(titleLabel, BorderLayout.WEST);
+        add(titleLabel, BorderLayout.NORTH);
 
         itemPanel = new JPanel();
         itemPanel.setBorder(BorderFactory.createTitledBorder(
@@ -114,7 +140,7 @@ public class shoppingCart extends JFrame implements ActionListener {
             }
         });
 
-        btnTotal = new JButton("Total");
+        btnTotal = new JButton("TOTAL");
         btnTotal.setFont(new Font("Arial", Font.BOLD, 13));
         btnTotal.addActionListener(new ActionListener() {
             @Override
@@ -125,7 +151,7 @@ public class shoppingCart extends JFrame implements ActionListener {
 
         JPanel buttonPanel = new JPanel();
         buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
-        buttonPanel.setBackground(Color.WHITE);
+        buttonPanel.setBackground(new java.awt.Color(102, 102, 0));
         buttonPanel.setBorder(new EmptyBorder(10, 0, 10, 0));
         buttonPanel.add(btnBackToHp);
         buttonPanel.add(btnCheckOut);
@@ -137,6 +163,12 @@ public class shoppingCart extends JFrame implements ActionListener {
 
         loadCartItems();
 
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                saveCartItemsToFile(); // Save cart items to "cart.txt" before closing the program
+            }
+        });
     }
 
     // ... (the rest of the class remains unchanged)
@@ -146,63 +178,143 @@ public class shoppingCart extends JFrame implements ActionListener {
         try {
             BufferedReader reader = new BufferedReader(new FileReader("cart.txt"));
             String line;
-            StringBuilder itemsBuilder = new StringBuilder();
-            StringBuilder pricesBuilder = new StringBuilder();
 
             while ((line = reader.readLine()) != null) {
                 String[] itemData = line.split(":");
-                if (itemData.length == 2) {
-                    itemsBuilder.append(itemData[0]).append("\n");
-                    pricesBuilder.append(itemData[1]).append("\n");
+                if (itemData.length == 3) { // Check if the line has 3 parts: item, price, and quantity
+                    String itemName = itemData[0];
+
+                    // Modify the way we extract the price value
+                    String rawPrice = itemData[1].replaceAll("[^0-9]", "").trim();
+                    int itemPrice = Integer.parseInt(rawPrice);
+                    int itemQuantity = Integer.parseInt(itemData[2]);
+
+                    int totalPrice = itemPrice * itemQuantity;
+
+                    cartItemsList.add(new CartItem(itemName, "Price: ₱" + itemPrice + " (Quantity: " + itemQuantity + ") = ₱" + totalPrice));
                 }
             }
-            itemTextArea.setText(itemsBuilder.toString());
-            priceTextArea.setText(pricesBuilder.toString());
+         // Display cart items and prices in the GUI
+            StringBuilder itemsBuilder = new StringBuilder();
+            StringBuilder pricesBuilder = new StringBuilder();
+
+            for (CartItem cartItem : cartItemsList) {
+                itemsBuilder.append(cartItem.getItemName()).append("\n");
+                pricesBuilder.append(cartItem.getItemPrice()).append("\n");
+            }
+
+            itemTextArea.setText(itemsBuilder.toString().trim()); // Remove trailing empty line
+            priceTextArea.setText(pricesBuilder.toString().trim()); // Remove trailing empty line
+
             reader.close();
         } catch (IOException ex) {
             ex.printStackTrace();
+        } catch (NumberFormatException ex) {
+            ex.printStackTrace();
+            // Handle any NumberFormatException that might occur during parsing
+            // This will help identify any discrepancies in the format of the "cart.txt" file
         }
     }
- // Update the removeFromCart method to remove selected item from the cart
+
+
     private void removeFromCart(String item) {
-        String currentItems = itemTextArea.getText();
-        String currentPrices = priceTextArea.getText();
+        ArrayList<CartItem> updatedItemsList = new ArrayList<>();
 
-        String[] items = currentItems.split("\n");
-        String[] prices = currentPrices.split("\n");
+        for (CartItem cartItem : cartItemsList) {
+            if (!cartItem.getItemName().equals(item)) {
+                updatedItemsList.add(cartItem);
+            }
+        }
 
+        // Update the cartItemsList with the new list of items
+        cartItemsList = updatedItemsList;
+
+        // Update the text areas with the new content
         StringBuilder updatedItems = new StringBuilder();
         StringBuilder updatedPrices = new StringBuilder();
-
-        for (int i = 0; i < items.length; i++) {
-            if (!items[i].equals(item)) {
-                updatedItems.append(items[i]).append("\n");
-                updatedPrices.append(prices[i]).append("\n");
-            }
+        for (CartItem cartItem : cartItemsList) {
+            updatedItems.append(cartItem.getItemName()).append("\n");
+            updatedPrices.append(cartItem.getItemPrice()).append("\n");
         }
+        itemTextArea.setText(updatedItems.toString().trim());
+        priceTextArea.setText(updatedPrices.toString().trim());
 
-        itemTextArea.setText(updatedItems.toString());
-        priceTextArea.setText(updatedPrices.toString());
-
-        try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter("cart.txt"));
-            for (int i = 0; i < updatedItems.length(); i++) {
-                // Using "tab" as a delimiter between item and price when writing to the file
-                writer.write(updatedItems.toString().split("\n")[i] + ":" + updatedPrices.toString().split("\n")[i]);
-                writer.newLine();
-            }
-            writer.close();
-        } catch (IOException ex) {
-            ex.printStackTrace();
-        }
+        // Save the updated items and prices to a file
+        saveCartItemsToFile();
     }
 
+
+
     // Update the actionPerformed method for btnRemoveItem
-    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btnCheckOut) {
-            dispose();
-            // new CheckOut();
+            // Get the selected clothing name and price
+            String selectedText = itemTextArea.getSelectedText();
+            String[] items = itemTextArea.getText().split("\n");
+            String[] prices = priceTextArea.getText().split("\n");
+            int selectedIdx = -1;
+
+            for (int i = 0; i < items.length; i++) {
+                if (items[i].equals(selectedText)) {
+                    selectedIdx = i;
+                    break;
+                }
+            }
+
+            // If a valid item is selected, proceed to CheckOut
+            if (selectedIdx != -1) {
+                String selectedClothingName = items[selectedIdx];
+
+                // Modify the way we extract the numeric price from the "Price: ₱xxx (Quantity: xx) = ₱yyy" format
+                String rawPrice = prices[selectedIdx].split("=")[1].replaceAll("[^0-9]", "").trim();
+                int selectedClothingPrice = Integer.parseInt(rawPrice);
+
+                // Create an instance of the CheckOut class and pass the clothing details
+                CheckOut checkOutFrame = new CheckOut(selectedClothingName, selectedClothingPrice);
+
+                // Remove the selected item and price from the text areas
+                items[selectedIdx] = "";
+                prices[selectedIdx] = "";
+
+                // Update the text areas with the new content
+                StringBuilder updatedItems = new StringBuilder();
+                StringBuilder updatedPrices = new StringBuilder();
+                for (int i = 0; i < items.length; i++) {
+                    if (!items[i].isEmpty()) {
+                        updatedItems.append(items[i]);
+                        updatedPrices.append(prices[i]);
+                        if (i < items.length - 1) {
+                            updatedItems.append("\n");
+                            updatedPrices.append("\n");
+                        }
+                    }
+                }
+                itemTextArea.setText(updatedItems.toString().trim());
+                priceTextArea.setText(updatedPrices.toString().trim());
+
+                // Save the updated items and prices to a file
+                try {
+                    BufferedWriter writer = new BufferedWriter(new FileWriter("cart.txt"));
+                    for (int i = 0; i < items.length; i++) {
+                        String item = items[i];
+                        String price = prices[i];
+                        if (!item.isEmpty()) {
+                            writer.write(item + ":" + price);
+                            writer.newLine();
+                        }
+                    }
+                    writer.close();
+                } catch (IOException ex) {
+                    ex.printStackTrace();
+                }
+
+                // Recalculate the total after checkout
+                calculateTotal();
+
+                dispose(); // Close the shoppingCart frame
+            } else {
+                JOptionPane.showMessageDialog(this, "Please highlight the item to select from the cart.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } else if (e.getSource() == btnBackToHp) {
             dispose();
             new Homepage().setVisible(true); // Show the Homepage window
@@ -215,26 +327,46 @@ public class shoppingCart extends JFrame implements ActionListener {
             calculateTotal();
         }
     }
-    
+
+    // Method to calculate the total price of items in the cart
     private void calculateTotal() {
         String[] items = itemTextArea.getText().split("\n");
         String[] prices = priceTextArea.getText().split("\n");
+        int total = 0;
 
         StringBuilder receiptBuilder = new StringBuilder();
-        double total = 0.0;
-
         for (int i = 0; i < items.length; i++) {
-            receiptBuilder.append(items[i]).append("\t").append(prices[i]).append("\n");
-            try {
-                double itemPrice = Double.parseDouble(prices[i]);
-                total += itemPrice;
-            } catch (NumberFormatException ex) {
-                // Ignore any non-numeric price values
-            }
+            receiptBuilder.append(items[i]).append("  ").append(prices[i]).append("\n");
+            String rawPrice = prices[i].split("=")[1].replaceAll("[^0-9]", "").trim();
+            int itemPrice = Integer.parseInt(rawPrice);
+            total += itemPrice;
         }
 
-        totalArea.setText(receiptBuilder.toString());
-        totalLabel.setText("Total: P" + String.format("%.2f", total));
+    
+
+        // Set the receipt content to the totalArea
+        totalArea.setText(receiptBuilder.toString().trim());
+
+        // Set the total amount to the totalLabel
+        totalLabel.setText("Total: ₱" + total);
+    }
+
+    
+    private void saveCartItemsToFile() {
+        String[] items = itemTextArea.getText().split("\n");
+        String[] prices = priceTextArea.getText().split("\n");
+
+        try {
+            BufferedWriter writer = new BufferedWriter(new FileWriter("cart.txt"));
+            for (int i = 0; i < items.length; i++) {
+                // Using "tab" as a delimiter between item and price when writing to the file
+                writer.write(items[i] + ":" + prices[i]);
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
     }
     
 }
