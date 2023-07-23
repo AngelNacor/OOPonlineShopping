@@ -174,7 +174,7 @@ public class OnlineShopMenu extends JFrame {
                 quantityComboBox.setAlignmentX(Component.CENTER_ALIGNMENT);
                 panel.add(quantityComboBox);
 
-                panel.add(Box.createVerticalStrut(10));
+                panel.add(Box.createVerticalStrut(30));
 
                 JButton buyButton = new JButton("Buy");
                 buyButton.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -215,7 +215,7 @@ public class OnlineShopMenu extends JFrame {
                 panel.add(addtocartButton);
                 panel.add(Box.createVerticalStrut(10));
                 
-                JButton cartButton = new JButton("Cart");
+                JButton cartButton = new JButton("Go To Cart");
                 cartButton.setAlignmentX(Component.CENTER_ALIGNMENT);
                 cartButton.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -226,6 +226,9 @@ public class OnlineShopMenu extends JFrame {
                     }
                 });
                 panel.add(cartButton);
+
+panel.add(Box.createVerticalStrut(30));
+
 
                 // Change the text of the default OK button to "Back"
                 Object[] options = {"Back"};
